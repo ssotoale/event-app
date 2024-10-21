@@ -4,21 +4,15 @@
   "description": "Please follow these coding standards to maintain consistency across the project:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "event-app"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "eslint": "^9.13.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.1",
-    "globals": "^15.11.0",
-    "prettier": "^3.3.3"
-  }
+  "license": "ISC"
+  
 }

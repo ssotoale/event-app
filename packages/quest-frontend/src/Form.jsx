@@ -17,7 +17,7 @@ function Form(props) {
   }
   return (
     <form>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="name">Add Main Quest:</label>
       <input
         type="text"
         name="name"
@@ -25,7 +25,7 @@ function Form(props) {
         value={person.name}
         onChange={handleChange}
       />
-      <label htmlFor="Task">Task</label>
+      <label htmlFor="Task">Add Side Quest:</label>
       <input
         type="text"
         name="job"

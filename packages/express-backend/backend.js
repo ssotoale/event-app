@@ -1,23 +1,23 @@
-// Import required modules
+// import required modules
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // To use environment variables
+require('dotenv').config(); // to use environment variables
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware to parse JSON
+// to parse JSON
 app.use(express.json());
-app.use(cors()); // Enable CORS for all routes
+app.use(cors()); // enable CORS for all routes
 
-// MongoDB connection
-const uri = process.env.MONGODB_URI; // Your MongoDB connection string
+// establish MongoDB connection
+const uri = process.env.MONGODB_URI; // MongoDB connection string
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// User schema
+// define user schema
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -25,11 +25,12 @@ const userSchema = new mongoose.Schema({
   uniqueId: { type: String, required: true, unique: true }
 });
 
-// User model
+// user model
 const User = mongoose.model('User', userSchema);
 
 // Routes
-// Register user
+
+// POST route to register user
 app.post('/api/register', async (req, res) => {
   const { username, email, password, uniqueId } = req.body;
 
@@ -42,7 +43,7 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// GET route for fetching all users
+// GET route to fetch all users
 app.get('/api/users', async (req, res) => {
     try {
         const users = await User.find(); // Retrieve all users from the database
@@ -52,7 +53,7 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-// Optional: HTML page to display users
+// temporary (until front end is updated) - HTML page to display users
 app.get('/users', async (req, res) => {
     try {
         const users = await User.find();
@@ -73,7 +74,7 @@ app.get('/users', async (req, res) => {
     }
 });
 
-// Start server
+// start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

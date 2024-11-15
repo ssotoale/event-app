@@ -5,12 +5,16 @@ import Table from './Table';
 import Form from './Form';
 import Home from './home';
 import Login from './login';
+import TopNav from "./components/TopNav";
+import BookmarkNav from './components/Sidebar';
+
 import './main.css';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [characters, setCharacters] = useState([]);
+  
 
   // Functions for managing quests
   const removeOneCharacter = (index) => {
@@ -24,11 +28,14 @@ function App() {
 
   return (
     <div className="App">
+      <BookmarkNav />
       <BrowserRouter>
         {/* Navigation Bar */}
-        <nav>
+        {/* <nav>
           <Link to="/login">Login</Link> | <Link to="/home">Home</Link>
-        </nav>
+        </nav> */}
+        <TopNav />
+
 
         <Routes>
           {/* Default route for Login */}

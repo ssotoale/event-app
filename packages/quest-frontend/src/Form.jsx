@@ -5,16 +5,20 @@ function Form(props) {
     name: "",
     job: ""
   });
+
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "job")
-      setPerson({ name: person["name"], job: value });
-    else setPerson({ name: value, job: person["Task"] });
+    setPerson((prevPerson) => ({
+      ...prevPerson,
+      [name]: value
+    }));
   }
+
   function submitForm() {
     props.handleSubmit(person);
-    setPerson({ name: "", job: "" });
+    setPerson({ name: "", job: "" }); // Resets the form after submission
   }
+
   return (
     <form>
       <label htmlFor="name">Add Main Quest:</label>
@@ -25,7 +29,7 @@ function Form(props) {
         value={person.name}
         onChange={handleChange}
       />
-      <label htmlFor="Task">Add Side Quest:</label>
+      <label htmlFor="job">Add Side Quest:</label>
       <input
         type="text"
         name="job"
@@ -33,9 +37,6 @@ function Form(props) {
         value={person.job}
         onChange={handleChange}
       />
-
-
-
       <input type="button" value="Submit" onClick={submitForm} />
     </form>
   );

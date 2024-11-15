@@ -19,7 +19,7 @@ const Login = ({ setLoggedIn, setEmail }) => {
   return (
     <div className="mainContainer">
       <div className="titleContainer">
-        <h2>Login</h2>
+        <h2>Login/Sign Up</h2>
       </div>
       <br />
       <div className="inputContainer">

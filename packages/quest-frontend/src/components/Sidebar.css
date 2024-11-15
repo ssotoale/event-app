@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Galindo&family=Metamorphous&family=Schoolbell&display=swap');
+
 /* Main container for the bookmark navigation */
 .bookmark-nav {
     position: absolute;
+    top: 55px; /* Adjust this value to be the height of your navbar */
+
     left: 30px;
     width: 94px;
     background: #fff;
@@ -11,7 +16,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1000; /* Ensures it stays on top of other content */
+
 }
+
 
 /* List styling */
 .bookmark-nav-list {
@@ -28,7 +36,7 @@
 }
 
 .bookmark-item.selected .bookmark-label {
-    color: red; /* Highlight the selected item */
+    color: #AF0006; /* Highlight the selected item */
 }
 
 /* Bookmark link styling */
@@ -48,18 +56,12 @@
 
 /* Label styling */
 .bookmark-label {
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    /* font-family: MedievalSharp, sans-serif; */
+    font-family: "Metamorphous", serif;
+
     font-weight: bold;
     margin-top: 0.5rem;
     font-size: 0.9rem;
 }
 
-/* Arrow at the bottom */
-.bookmark-arrow {
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 20px solid red;
-    margin-top: 1rem;
-}

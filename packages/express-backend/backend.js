@@ -2,11 +2,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const { authenticateUser } = require("./auth");
 require("dotenv").config(); // to use environment variables
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
 
 // to parse JSON
 app.use(express.json());
@@ -33,7 +33,7 @@ const User = mongoose.model("User", userSchema);
 // Routes
 
 // POST route to register user
-app.post("/api/register", async (req, res) => {
+app.post("/api/register", authenticateUser, async (req, res) => {
   const { username, email, password, uniqueId } = req.body;
 
   try {
@@ -75,6 +75,9 @@ app.get("/users", async (req, res) => {
     res.status(500).send({ message: "Error retrieving users", error });
   }
 });
+//User sign up
+app.post("/signup", registerUser);
+app.post("/login", registerUser);
 
 //User Task
 const usertask = new mongoose.Schema({

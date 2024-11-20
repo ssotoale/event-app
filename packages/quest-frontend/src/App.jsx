@@ -55,7 +55,7 @@ function App() {
             path="/home"
             element={
               <div className="container">
-                <h2>Enter your task here!</h2>
+                {/* <h2>420 gold</h2> */}
                 <Table characterData={characters} removeCharacter={removeOneCharacter} />
                 <Form handleSubmit={updateList} />
               </div>

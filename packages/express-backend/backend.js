@@ -7,6 +7,7 @@ require("dotenv").config(); // to use environment variables
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
 // to parse JSON
 app.use(express.json());
 app.use(cors()); // enable CORS for all routes
@@ -84,6 +85,9 @@ const usertask = new mongoose.Schema({
 });
 
 // start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net:${PORT}`);
+// });
+app.listen(process.env.PORT || port, () => {
+  console.log("REST API is listening.");
 });

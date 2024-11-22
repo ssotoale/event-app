@@ -1,55 +1,62 @@
-// src/login.jsx
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ setLoggedIn, setEmail }) => {
-  const [email, setLocalEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  
+const Login = ({ handleSubmit, setEmail }) => {
+  const [email, setLocalEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   const onButtonClick = () => {
-    setEmail(email);
-    setLoggedIn(true);
-    navigate('/');
+    console.log("Submitting credentials:", { email, password }); // Debugging log
+
+    if (!email || !password) {
+      setError("Both email and password are required.");
+      return;
+    }
+
+    handleSubmit({ email, password })
+      .then(() => {
+        console.log("Login successful");
+        setEmail(email); // Save email
+        navigate("/home"); // Redirect on success
+      })
+      .catch((err) => {
+        console.error("Login failed:", err); // Debugging log
+        setError(err || "Login failed. Please try again.");
+      });
   };
 
   return (
     <div className="mainContainer">
       <div className="titleContainer">
-        <h2>Login/Sign Up</h2>
+        <h2>Login</h2>
       </div>
-      <br />
       <div className="inputContainer">
         <input
+          name="email"
           value={email}
-          placeholder="Enter your email here"
-          onChange={(ev) => setLocalEmail(ev.target.value)}
+          placeholder="Enter your email"
+          onChange={(e) => setLocalEmail(e.target.value)}
           className="inputBox"
         />
-        <label className="errorLabel">{emailError}</label>
       </div>
-      <br />
       <div className="inputContainer">
         <input
+          name="password"
           type="password"
           value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
+          placeholder="Enter your password"
+          onChange={(e) => setPassword(e.target.value)}
           className="inputBox"
         />
-        <label className="errorLabel">{passwordError}</label>
       </div>
-      <br />
+      {error && <div className="errorLabel">{error}</div>}
       <div className="inputContainer">
-        <button className="inputButton" onClick={onButtonClick}>Log in</button>
-      </div>
-      <br />
-      {/* Link to Home Page */}
-      <div className="inputContainer">
-        <Link to="/home">Go to Home</Link>
+        <button className="inputButton" onClick={onButtonClick}>
+          Log in
+        </button>
       </div>
     </div>
   );

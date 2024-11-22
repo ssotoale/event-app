@@ -1,8 +1,11 @@
 // import required modules
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { authenticateUser } = require("./auth");
+const { registerUser } = require("./auth");
+const { loginUser } = require("./auth");
 require("dotenv").config(); // to use environment variables
 
 const app = express();
@@ -77,7 +80,7 @@ app.get("/users", async (req, res) => {
 });
 //User sign up
 app.post("/signup", registerUser);
-app.post("/login", registerUser);
+app.post("/login", loginUser);
 
 //User Task
 const usertask = new mongoose.Schema({
@@ -91,6 +94,6 @@ const usertask = new mongoose.Schema({
 // app.listen(PORT, () => {
 //   console.log(`Server running on http://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net:${PORT}`);
 // });
-app.listen(process.env.PORT || port, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log("REST API is listening.");
 });

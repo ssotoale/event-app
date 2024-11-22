@@ -1,27 +1,55 @@
-// src/App.jsx
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes, Link, Navigate } from 'react-router-dom';
-import Table from './Table';
-import Form from './Form';
-import Home from './home';
-import Login from './login';
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Table from "./Table";
+import Form from "./Form";
+import Home from "./home";
+import Login from "./login";
 import TopNav from "./components/TopNav";
-import BookmarkNav from './components/Sidebar';
+import BookmarkNav from "./components/Sidebar";
 
-import './main.css';
+import "./main.css";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [characters, setCharacters] = useState([]);
-  
+  const [token, setToken] = useState(""); // State for the token
+  const [message, setMessage] = useState(""); // State for messages
 
-  // Functions for managing quests
+  // Function to handle user login
+  function loginUser(creds) {
+    console.log("Submitting credentials:", creds); // Debugging log
+    return fetch(`${API_PREFIX}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(creds),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json().then((payload) => {
+            setToken(payload.token); // Save token
+            setMessage("Login successful; auth token saved");
+          });
+        } else {
+          return Promise.reject(
+            `Error ${response.status}: ${response.statusText}`,
+          );
+        }
+      })
+      .catch((error) => {
+        setMessage(`Login Error: ${error}`);
+        throw error; // Ensure the error is propagated
+      });
+  }
+
+  // Function to remove a character
   const removeOneCharacter = (index) => {
     const updated = characters.filter((character, i) => i !== index);
     setCharacters(updated);
   };
 
+  // Function to add a new character
   const updateList = (person) => {
     setCharacters([...characters, person]);
   };
@@ -30,39 +58,40 @@ function App() {
     <div className="App">
       <BookmarkNav />
       <BrowserRouter>
-        {/* Navigation Bar */}
-        {/* <nav>
-          <Link to="/login">Login</Link> | <Link to="/home">Home</Link>
-        </nav> */}
         <TopNav />
-
-
         <Routes>
           {/* Default route for Login */}
           <Route
             path="/login"
-            element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />}
+            element={
+              <Login
+                handleSubmit={loginUser} // Pass login function
+                setEmail={setEmail}
+              />
+            }
           />
-          
+
           {/* Redirect the root route (/) to /login */}
-          <Route
-            path="/"
-            element={<Navigate to="/login" replace />}
-          />
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
           {/* Home route */}
           <Route
             path="/home"
             element={
               <div className="container">
-                {/* <h2>420 gold</h2> */}
-                <Table characterData={characters} removeCharacter={removeOneCharacter} />
+                <Table
+                  characterData={characters}
+                  removeCharacter={removeOneCharacter}
+                />
                 <Form handleSubmit={updateList} />
               </div>
             }
           />
         </Routes>
       </BrowserRouter>
+
+      {/* Display messages */}
+      {message && <div className="message">{message}</div>}
     </div>
   );
 }

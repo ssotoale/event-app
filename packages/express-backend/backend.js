@@ -88,6 +88,6 @@ const usertask = new mongoose.Schema({
 // app.listen(PORT, () => {
 //   console.log(`Server running on http://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net:${PORT}`);
 // });
-app.listen(process.env.PORT || port, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log("REST API is listening.");
 });

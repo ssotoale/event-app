@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      <BookmarkNav />
+      
       <BrowserRouter>
         {/* Navigation Bar */}
         {/* <nav>

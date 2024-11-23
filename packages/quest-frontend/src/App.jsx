@@ -5,6 +5,8 @@ import Table from './Table';
 import Form from './Form';
 import Home from './home';
 import Login from './login';
+import Progress from './Progress'; 
+import Challenges from './Challenges';
 import TopNav from "./components/TopNav";
 import BookmarkNav from './components/Sidebar';
 
@@ -28,15 +30,8 @@ function App() {
 
   return (
     <div className="App">
-      
       <BrowserRouter>
-        {/* Navigation Bar */}
-        {/* <nav>
-          <Link to="/login">Login</Link> | <Link to="/home">Home</Link>
-        </nav> */}
         <TopNav />
-
-
         <Routes>
           {/* Default route for Login */}
           <Route
@@ -45,22 +40,24 @@ function App() {
           />
           
           {/* Redirect the root route (/) to /login */}
-          <Route
-            path="/"
-            element={<Navigate to="/login" replace />}
-          />
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
           {/* Home route */}
           <Route
             path="/home"
             element={
               <div className="container">
-                {/* <h2>420 gold</h2> */}
                 <Table characterData={characters} removeCharacter={removeOneCharacter} />
                 <Form handleSubmit={updateList} />
               </div>
             }
           />
+
+          {/* Progress route */}
+          <Route path="/home/progress" element={<Progress />} />
+
+          {/* Challenges route */}
+          <Route path="/home/challenge" element={<Challenges />} />
         </Routes>
       </BrowserRouter>
     </div>

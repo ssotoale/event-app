@@ -1217,6 +1217,82 @@ caption {
     width: 100%;
   }
 }
+/* Login Page Styles */
+
+.loginContainer {
+  text-align: center;
+  font-family: 'Georgia', serif;
+  margin: 50px auto;
+  max-width: 400px;
+}
+
+.loginTitle {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.wizardImage {
+  width: 100px;
+  margin: 20px auto;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputContainer {
+  text-align: left;
+}
+
+.inputBox {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.errorLabel {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.loginButton, .createAccountButton {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.loginButton {
+  background-color: #8b5e34;
+  color: #fff;
+}
+
+.createAccountButton {
+  background-color: #a67c52;
+  color: #fff;
+}
+
+.homeLink {
+  margin-top: 10px;
+  display: block;
+  font-size: 0.9em;
+  text-decoration: none;
+  color: #8b5e34;
+}
+
+.homeLink:hover {
+  text-decoration: underline;
+}
 
 /*
  * Navigation

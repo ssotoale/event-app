@@ -1,0 +1,35 @@
+/* src/components/TopNav/TopNav.css */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.top-nav {
+  position: sticky;
+  top: 0; 
+  display: flex;
+  justify-content: space-between; /* Space between left, center, and right sections */
+  align-items: center;
+  padding: 5px 20px;
+  max-height: 55px;
+  background-color: #977145;
+  color: #fff;
+  border-bottom: 1px solid #000;
+}
+
+.top-nav-left, 
+.top-nav-right {
+  flex: 1; /* Allow left and right sections to take up equal space */
+  display: flex;
+  align-items: center;
+}
+
+.top-nav-center {
+  flex: 2; /* Center section takes more space */
+  display: flex;
+  justify-content: center; /* Center the content within this section */
+  align-items: center;
+}
+
+.app-title {
+  font-size: 45px;
+  color: #fff;
+  font-family: MedievalSharp, sans-serif;
+}

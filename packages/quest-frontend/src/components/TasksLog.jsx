@@ -15,15 +15,20 @@ const TasksLog = () => {
     };
 
     const [tasks, setTasks] = useState(initialTasks);
-    const [newTask, setNewTask] = useState("");
+    const [newTask, setNewTask] = useState(
+        Object.keys(initialTasks).reduce((acc, day) => {
+            acc[day] = ""; // Initialize input values for each day
+            return acc;
+        }, {})
+    );
 
     const addTask = (day) => {
-        if (newTask.trim()) {
+        if (newTask[day].trim()) {
             setTasks({
                 ...tasks,
-                [day]: [...tasks[day], { name: newTask, completed: false, xp: 5 }]
+                [day]: [...tasks[day], { name: newTask[day], completed: false, xp: 5 }]
             });
-            setNewTask("");
+            setNewTask({ ...newTask, [day]: "" }); // Clear the input for the specific day
         }
     };
 
@@ -80,8 +85,10 @@ const TasksLog = () => {
                             <input
                                 type="text"
                                 placeholder={`Add task to ${day}`}
-                                value={newTask}
-                                onChange={(e) => setNewTask(e.target.value)}
+                                value={newTask[day]}
+                                onChange={(e) =>
+                                    setNewTask({ ...newTask, [day]: e.target.value })
+                                }
                             />
                             <button onClick={() => addTask(day)}>Add</button>
                         </div>

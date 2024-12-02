@@ -9,54 +9,26 @@ import Progress from './Progress';
 import Challenges from './Challenges';
 import TopNav from "./components/TopNav";
 import BookmarkNav from './components/Sidebar';
-
 import './main.css';
+import TasksLog from './components/TasksLog';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
-  const [characters, setCharacters] = useState([]);
-  
-
-  // Functions for managing quests
-  const removeOneCharacter = (index) => {
-    const updated = characters.filter((character, i) => i !== index);
-    setCharacters(updated);
-  };
-
-  const updateList = (person) => {
-    setCharacters([...characters, person]);
-  };
 
   return (
     <div className="App">
       <BrowserRouter>
         <TopNav />
         <Routes>
-          {/* Default route for Login */}
           <Route
             path="/login"
             element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />}
           />
-          
-          {/* Redirect the root route (/) to /login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
-
-          {/* Home route */}
-          <Route
-            path="/home"
-            element={
-              <div className="container">
-                <Table characterData={characters} removeCharacter={removeOneCharacter} />
-                <Form handleSubmit={updateList} />
-              </div>
-            }
-          />
-
-          {/* Progress route */}
+          <Route path="/home" element={<TasksLog />} />
           <Route path="/home/progress" element={<Progress />} />
-
-          {/* Challenges route */}
           <Route path="/home/challenge" element={<Challenges />} />
         </Routes>
       </BrowserRouter>

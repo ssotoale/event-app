@@ -51,6 +51,46 @@
   justify-content: center;
   height: 100vh;
 }
+.tasks-log-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0 auto;
+  width: 90%; /* Optional for responsiveness */
+}
+
+.tasks-log-table {
+  width: 100%;
+  max-width: 800px; /* Optional */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tasks-log-table th,
+.tasks-log-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.tasks-log-table th {
+  background-color: #977145; /* Match the navbar color */
+  color: white;
+  font-family: "MedievalSharp", sans-serif;
+}
+
+.tasks-log-table td {
+  font-family: "MedievalSharp", sans-serif;
+}
+
+h1 {
+  font-family: "MedievalSharp", sans-serif;
+  font-size: 24px;
+  color: #977145;
+  margin-bottom: 20px;
+}
 
 .titleContainer {
   display: flex;

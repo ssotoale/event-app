@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Table from "./Table";
@@ -53,14 +54,32 @@ function App() {
   const updateList = (person) => {
     setCharacters([...characters, person]);
   };
+=======
+// src/App.jsx
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes, Link, Navigate } from 'react-router-dom';
+import Table from './Table';
+import Form from './Form';
+import Home from './home';
+import Login from './login';
+import Progress from './Progress'; 
+import Challenges from './Challenges';
+import TopNav from "./components/TopNav";
+import BookmarkNav from './components/Sidebar';
+import './main.css';
+import TasksLog from './components/TasksLog';
+
+
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
+>>>>>>> 0b06c9fe430cedf9c14a727e6234a11f9dad45ef
 
   return (
     <div className="App">
-      <BookmarkNav />
       <BrowserRouter>
         <TopNav />
         <Routes>
-          {/* Default route for Login */}
           <Route
             path="/login"
             element={
@@ -70,6 +89,7 @@ function App() {
               />
             }
           />
+<<<<<<< HEAD
 
           {/* Redirect the root route (/) to /login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -87,6 +107,12 @@ function App() {
               </div>
             }
           />
+=======
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/home" element={<TasksLog />} />
+          <Route path="/home/progress" element={<Progress />} />
+          <Route path="/home/challenge" element={<Challenges />} />
+>>>>>>> 0b06c9fe430cedf9c14a727e6234a11f9dad45ef
         </Routes>
       </BrowserRouter>
 

@@ -1,45 +1,33 @@
-import React, { useState } from "react";
+// src/Form.jsx
+import React, { useState } from 'react';
 
-function Form(props) {
-  const [person, setPerson] = useState({
-    name: "",
-    job: ""
-  });
+const Form = ({ handleSubmit }) => {
+  const [task, setTask] = useState('');
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setPerson((prevPerson) => ({
-      ...prevPerson,
-      [name]: value
-    }));
-  }
-
-  function submitForm() {
-    props.handleSubmit(person);
-    setPerson({ name: "", job: "" }); // Resets the form after submission
-  }
+  const submitForm = () => {
+    if (task.trim()) {
+      handleSubmit({ task });
+      setTask('');
+    }
+  };
 
   return (
-    <form>
-      <label htmlFor="name">Add Main Quest:</label>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        submitForm();
+      }}
+    >
+      <label htmlFor="task">Quest:</label>
       <input
         type="text"
-        name="name"
-        id="name"
-        value={person.name}
-        onChange={handleChange}
+        id="task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
       />
-      <label htmlFor="job">Add Side Quest:</label>
-      <input
-        type="text"
-        name="job"
-        id="job"
-        value={person.job}
-        onChange={handleChange}
-      />
-      <input type="button" value="Submit" onClick={submitForm} />
+      <button type="submit">Add Quest</button>
     </form>
   );
-}
+};
 
 export default Form;

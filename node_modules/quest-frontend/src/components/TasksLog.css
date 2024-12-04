@@ -1,0 +1,115 @@
+.tasks-log {
+    margin-left: 140px; /* Space for sidebar */
+    padding: 20px;
+    font-family: "MedievalSharp", serif;
+    color: #000;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    border-bottom: 2px solid #977145;
+    padding-bottom: 10px;
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 20px 0;
+    border: 1px solid #ddd;
+    background: #f5f5dc;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.day-column {
+    min-width: 300px;
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #faf5e6;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.day-column h3 {
+    background-color: #977145;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.add-task {
+    margin-top: 10px;
+}
+
+button {
+    background-color: #af0006;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d10008;
+}
+
+input[type="text"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 70%;
+    margin-right: 10px;
+}
+
+/* Scroll Effect */
+.scroll-effect {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    height: calc(100% - 40px);
+    width: 20px;
+    background-color: #faf5e6;
+    border-left: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-knob {
+    width: 80%;
+    height: 30px;
+    background-color: #977145;
+    margin: 5px auto;
+    border-radius: 10px;
+}

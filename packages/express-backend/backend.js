@@ -21,7 +21,8 @@ const User = require("./models/users"); // Import the User model
 const PORT = process.env.PORT;
 
 const allowedOrigins = [
-  "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net" // Your frontend domain
+  "https://green-forest-049593b1e.5.azurestaticapps.net", // Frontend domain
+  "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net" // Backend domain
 ];
 
 const corsOptions = {

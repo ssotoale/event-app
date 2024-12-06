@@ -19,11 +19,9 @@ const User = require("./models/users"); // Import the User model
 
 const PORT = process.env.PORT || 5000;
 
-const corsOptions = {
-  origin: 'https://green-forest-049593b1e.5.azurestaticapps.net/', // Allow your frontend domain
-  methods: 'GET,POST',
-};
-app.use(cors(corsOptions)); 
+app.use(cors({
+  origin: "https://green-forest-049593b1e.5.azurestaticapps.net", // Replace with your frontend URL
+}));
 
 const uri = process.env.MONGODB_URI;
 

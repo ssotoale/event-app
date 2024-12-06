@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // Add your backend API URL
 const API_PREFIX = process.env.REACT_APP_API_PREFIX;
+console.log(API_PREFIX);
 
 const registerUser = (username, password, setMessage) => {
   return fetch(`${API_PREFIX}/api/create-account`, {
@@ -60,7 +61,8 @@ const CreateAccount = () => {
     setMessage(""); // Clear previous messages before validation
 
     if (!validateInputs()) return;
-
+    console.log(API_PREFIX);
+    
     registerUser(username, password, setMessage).then((success) => {
       if (success) {
         setMessage("Account created successfully.");

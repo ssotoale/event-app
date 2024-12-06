@@ -1,4 +1,4 @@
-require("dotenv").config(); // to use environment variables
+require("dotenv").config(); // Load environment variables
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,73 +9,60 @@ const {
   userTask,
 } = require("./auth"); // Import functions from auth.js
 
-
-
-
-
 const app = express();
+const PORT = process.env.PORT || 5000; // Default to port 5000 if not defined
+
+// Middleware
 app.use(express.json());
-app.use(cors()); 
-const User = require("./models/users"); // Import the User model
 
-const PORT = process.env.PORT;
-
-const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000"; // Fallback for local testing
+// Configure CORS
+const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000"; // Frontend URL from environment variable
 const allowedOrigins = [frontendURL, "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net"];
-
-const allowedOrigins = [
-  "https://green-forest-049593b1e.5.azurestaticapps.net", // Frontend domain
-  "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net" // Backend domain
-];
 
 const corsOptions = {
   origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow POST and other methods
-  credentials: true, // Enable sending cookies and other credentials
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allow necessary HTTP methods
+  credentials: true, // Enable credentials (e.g., cookies, authentication headers)
 };
 
 app.use(cors(corsOptions));
 
+// MongoDB connection
 const uri = process.env.MONGODB_URI;
 
 if (!uri) {
   console.error("MongoDB URI is not defined in the environment variables.");
-  process.exit(1); // Exit the application if the URI is missing
+  process.exit(1); // Exit if MongoDB URI is missing
 }
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("MongoDB connected");
+    console.log("MongoDB connected successfully");
   })
   .catch((err) => {
-    console.error("MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err.message);
+    process.exit(1); // Exit on connection error
   });
 
+// Import the User model
+const User = require("./models/users");
+
 // Routes
+app.post("/api/create-account", registerUser); // Route to register a user
+app.post("/api/login", loginUser); // Route to log in a user
+app.post("/tasks", userTask); // Route to add a task
 
-// POST route to register a user (now using auth.js's registerUser)
-app.post("/api/create-account", registerUser); // Use the imported registerUser function
-
-// GET route to fetch all users
-app.get("/api/users", (req, res) => {
-  User.find()
-    .then((users) => {
-      res.json(users); // Send the users as a JSON response
-    })
-    .catch((error) => {
-      res.status(500).send({ message: "Error retrieving users", error });
-    });
+// Protected routes
+app.get("/api/user-data", authenticateUser, (req, res) => {
+  res.status(200).json({ message: "User authenticated successfully", user: req.user });
 });
 
-// POST route to login user (now using auth.js's loginUser)
-app.post("/api/login", loginUser); // Use the imported loginUser function
-app.post("/tasks", userTask);
+app.get("/tasks", authenticateUser, (req, res) => {
+  res.status(200).json({ message: "Authenticated user tasks retrieved successfully" });
+});
 
-// GET route for user data (protected route using the authenticateUser middleware)
-app.get("/api/user-data", authenticateUser);
-// req.user is populated with the decoded JWT payload
-app.get("/tasks", authenticateUser);
+// DELETE task by ID
 app.delete("/Table/:username/:taskId", async (req, res) => {
   const { username, taskId } = req.params;
 
@@ -96,11 +83,12 @@ app.delete("/Table/:username/:taskId", async (req, res) => {
 
     res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting task", error });
+    console.error("Error deleting task:", error.message);
+    res.status(500).json({ message: "Error deleting task", error: error.message });
   }
 });
 
-// start server
-app.listen(process.env.PORT || PORT, () => {
-  console.log("REST API is listening.");
+// Start the server
+app.listen(PORT, () => {
+  console.log(`REST API is listening on port ${PORT}`);
 });

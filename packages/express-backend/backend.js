@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors()); 
 const User = require("./models/users"); // Import the User model
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 const allowedOrigins = [
   "https://green-forest-049593b1e.5.azurestaticapps.net" // Your frontend domain

@@ -19,13 +19,7 @@ app.use(express.json());
 const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000"; // Frontend URL from environment variable
 const allowedOrigins = [frontendURL, "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net"];
 
-const corsOptions = {
-  origin: allowedOrigins,
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allow necessary HTTP methods
-  credentials: true, // Enable credentials (e.g., cookies, authentication headers)
-};
-
-app.use(cors(corsOptions));
+app.use(cors();
 
 // MongoDB connection
 const uri = process.env.MONGODB_URI;

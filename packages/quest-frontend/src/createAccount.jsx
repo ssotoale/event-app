@@ -18,8 +18,8 @@ const registerUser = (username, password, setMessage) => {
   })
     .then((response) => {
       if (!response.ok) {
-        return response.json().then((errorText) => {
-          throw new Error(errorText.message || "Unknown error occurred.");
+        return response.text().then((errorText) => {
+          throw new Error(errorText || "Unknown error occurred.");
         });
       }
       return response.json(); // Parse as JSON if the response is OK
@@ -35,6 +35,7 @@ const registerUser = (username, password, setMessage) => {
       return false; // Failure
     });
 };
+
 const CreateAccount = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

@@ -53,6 +53,11 @@ app.post("/api/create-account", registerUser); // Route to register a user
 app.post("/api/login", loginUser); // Route to log in a user
 app.post("/tasks", userTask); // Route to add a task
 
+//testing get API
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 // Protected routes
 app.get("/api/user-data", authenticateUser, (req, res) => {
   res.status(200).json({ message: "User authenticated successfully", user: req.user });

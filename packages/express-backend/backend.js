@@ -15,6 +15,7 @@ const {
 
 const app = express();
 app.use(express.json());
+app.use(cors()); 
 const User = require("./models/users"); // Import the User model
 
 const PORT = process.env.PORT || 5000;

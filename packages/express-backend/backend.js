@@ -20,6 +20,9 @@ const User = require("./models/users"); // Import the User model
 
 const PORT = process.env.PORT;
 
+const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000"; // Fallback for local testing
+const allowedOrigins = [frontendURL, "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net"];
+
 const allowedOrigins = [
   "https://green-forest-049593b1e.5.azurestaticapps.net", // Frontend domain
   "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net" // Backend domain

@@ -15,6 +15,7 @@ function generateAccessToken(username) {
 // Example in the registerUser function:
 function registerUser(req, res) {
   const { username, password } = req.body;
+  console.log(req.body);
 
   if (!username || !password) {
     return res.status(400).json({ error: "Bad request: Invalid input data." }); // Changed to .json()

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Add your backend API URL
-const API_PREFIX = process.env.API_PREFIX;
+const API_PREFIX = process.env.REACT_APP_API_PREFIX;
 
 const registerUser = (username, password, setMessage) => {
   return fetch(`${API_PREFIX}/api/create-account`, {

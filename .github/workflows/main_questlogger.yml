@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test
+      - name: npm install
         run: |
           npm install --workspaces=false
           working-directory: packages/express-backend

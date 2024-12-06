@@ -54,7 +54,7 @@ app.post("/api/login", loginUser); // Route to log in a user
 app.post("/tasks", userTask); // Route to add a task
 
 //testing get API
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Hello World!");
 });
 

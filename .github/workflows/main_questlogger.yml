@@ -21,7 +21,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install --workspaces=false
-          
           working-directory: packages/express-backend
 
       - name: Zip artifact for deployment

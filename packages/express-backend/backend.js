@@ -8,14 +8,22 @@ const {
   loginUser,
   userTask,
 } = require("./auth"); // Import functions from auth.js
+
+
+
+
+
 const app = express();
 app.use(express.json());
 const User = require("./models/users"); // Import the User model
 
 const PORT = process.env.PORT || 5000;
 
-// to parse JSON
-app.use(cors()); // enable CORS for all routes
+const corsOptions = {
+  origin: 'https://your-frontend.azurewebsites.net', // Allow your frontend domain
+  methods: 'GET,POST',
+};
+app.use(cors(corsOptions)); 
 
 const uri = process.env.MONGODB_URI;
 

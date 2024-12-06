@@ -18,7 +18,6 @@ const registerUser = (username, password, setMessage) => {
   })
     .then((response) => {
       if (!response.ok) {
-        // Handle non-OK responses
         return response.json().then((errorText) => {
           throw new Error(errorText.message || "Unknown error occurred.");
         });
@@ -32,11 +31,10 @@ const registerUser = (username, password, setMessage) => {
     })
     .catch((error) => {
       console.error("Error creating user:", error.message);
-      setMessage(`Error: ${error.message}`); // Display error message to the user
+      setMessage(`Error: ${error.message}`);
       return false; // Failure
     });
 };
-
 const CreateAccount = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Add your backend API URL
-const API_PREFIX = process.env.REACT_APP_API_PREFIX || "https://green-forest-049593b1e.5.azurestaticapps.net/";
+const API_PREFIX = process.env.REACT_APP_API_PREFIX || "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net/";
 console.log(API_PREFIX);
 
 const registerUser = (username, password, setMessage) => {

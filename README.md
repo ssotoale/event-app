@@ -1,5 +1,5 @@
 # QuestLogger
-# Introduction
+## Introduction
 Help people organize their lives with a fun fantasy game twist 🌟. QuestLogger is a to-do list app that combines the unique nostalgia of fantasy RPG games with the convenience of a to-do list tracker to promote productivity, organization, and progress in your daily tasks! 
 
 Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms your daily tasks into quests, making every accomplishment feel like part of an epic journey. Say goodbye to boring task managers that all look the same, and embrace the feeling of a traveler jotting down their adventures in a magical scroll after a long day.

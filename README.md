@@ -16,6 +16,8 @@ Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms
 
 **[Click here](https://github.com/ssotoale/event-app/blob/main/wikipage.md)** to view our UML Class Diagrams
 
+
+
 # Installation & Setup
 ## Development Environment Set Up
 

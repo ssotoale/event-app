@@ -73,8 +73,6 @@ Once both the frontend and backend are running, visit `http://localhost:5000` to
    ```bash
    npm test
    ```
-   (Or follow specific test instructions in the README if applicable.)
-
 ---
 
 By following these steps, you should be able to set up the project environment and start contributing to the project.

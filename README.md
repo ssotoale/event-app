@@ -12,12 +12,13 @@ Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms
 
 **Embark on your productivity quest and conquer your day, one quest at a time!**
 
-**[Click here](https://www.figma.com/proto/pLOeuJosEQzmTugGTaWfRu/TA-2%3A-Storyboard?node-id=90-4&t=kRTwjutYyFHnk6BK-1)** to see our UI Prototype.
-## Contributing
+**[Click here](https://www.figma.com/proto/pLOeuJosEQzmTugGTaWfRu/TA-2%3A-Storyboard?node-id=90-4&t=kRTwjutYyFHnk6BK-1)** to see our UI Prototype, last updated (11/04/2024)
 
-Please follow these coding standards to maintain consistency across the project:
+## Development Environment Set Up
 
 ### Code Style
+
+Please follow these coding standards to maintain consistency across the project:
 - We use **Prettier** and **ESLint** to enforce consistent formatting.
 - Make sure to install the recommended VSCode extensions and set up auto-formatting.
 - Run the following command to format your code before submitting:

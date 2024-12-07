@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./TasksLog.css";
+
 const API_PREFIX = "http://localhost:5000";
+
 const TasksLog = () => {
   const getFormattedDate = (offset = 0) => {
     const date = new Date();
@@ -19,46 +21,50 @@ const TasksLog = () => {
     Object.keys(initialTasks).reduce((acc, day) => {
       acc[day] = ""; // Initialize input values for each day
       return acc;
-    }, {}),
+    }, {})
   );
 
   const addTask = async (day) => {
-    const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
-
-    if (!token) {
-      console.error("No token found, please log in first");
-      return;
-    }
+    const token = localStorage.getItem("authToken");
 
     const taskToAdd = {
-      task: newTask[day],
+      task: newTask[day], // Use "task" instead of "name"
       completed: false,
       xp: 5,
-      date: getFormattedDate(day), // Use the formatted date here
     };
+
+    if (!token) {
+      // Local addition if no token is found
+      setTasks({
+        ...tasks,
+        [day]: [...(tasks[day] || []), taskToAdd],
+      });
+      setNewTask({ ...newTask, [day]: "" });
+      console.warn("No token found. Task added locally.");
+      return;
+    }
 
     try {
       const response = await fetch(`${API_PREFIX}/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          username: "exampleUser", // You can get the username from the decoded token if needed
+          username: "exampleUser", // Update as needed
           task: taskToAdd,
         }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        const formattedDate = getFormattedDate(day);
         setTasks({
           ...tasks,
-          [formattedDate]: [...(tasks[formattedDate] || []), taskToAdd],
+          [day]: [...(tasks[day] || []), taskToAdd],
         });
-        setNewTask({ ...newTask, [day]: "" }); // Clear the input for the specific day
-        console.log("Task added successfully");
+        setNewTask({ ...newTask, [day]: "" });
+        console.log("Task added successfully.");
       } else {
         console.error("Error adding task:", data.message);
       }

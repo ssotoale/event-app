@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Add your backend API URL
-const API_PREFIX = "http://localhost:5000";
+const API_PREFIX = "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net";
+console.log(API_PREFIX);
 
 const registerUser = (username, password, setMessage) => {
   return fetch(`${API_PREFIX}/api/create-account`, {
@@ -17,9 +18,8 @@ const registerUser = (username, password, setMessage) => {
   })
     .then((response) => {
       if (!response.ok) {
-        // Handle non-OK responses
-        return response.json().then((errorText) => {
-          throw new Error(errorText.message || "Unknown error occurred.");
+        return response.text().then((errorText) => {
+          throw new Error(errorText || "Unknown error occurred.");
         });
       }
       return response.json(); // Parse as JSON if the response is OK
@@ -31,7 +31,7 @@ const registerUser = (username, password, setMessage) => {
     })
     .catch((error) => {
       console.error("Error creating user:", error.message);
-      setMessage(`Error: ${error.message}`); // Display error message to the user
+      setMessage(`Error: ${error.message}`);
       return false; // Failure
     });
 };
@@ -60,7 +60,8 @@ const CreateAccount = () => {
     setMessage(""); // Clear previous messages before validation
 
     if (!validateInputs()) return;
-
+    console.log(API_PREFIX);
+    
     registerUser(username, password, setMessage).then((success) => {
       if (success) {
         setMessage("Account created successfully.");

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import wizardImg from "./components/assets/wizard.png";
 
-// Replace with your actual backend API URL
 const API_PREFIX = "http://localhost:5000";
 
 const loginUser = (creds, setMessage) => {

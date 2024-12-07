@@ -1,4 +1,4 @@
-require("dotenv").config(); // to use environment variables
+require("dotenv").config(); // Load environment variables
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -8,6 +8,7 @@ const {
   loginUser,
   userTask,
 } = require("./auth"); // Import functions from auth.js
+
 const app = express();
 app.use(express.json());
 const User = require("./models/users"); // Import the User model
@@ -19,32 +20,30 @@ const uri = process.env.MONGODB_URI;
 
 if (!uri) {
   console.error("MongoDB URI is not defined in the environment variables.");
-  process.exit(1); // Exit the application if the URI is missing
+  process.exit(1); // Exit if MongoDB URI is missing
 }
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("MongoDB connected");
+    console.log("MongoDB connected successfully");
   })
   .catch((err) => {
-    console.error("MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err.message);
+    process.exit(1); // Exit on connection error
   });
 
+// Import the User model
+const User = require("./models/users");
+
 // Routes
+app.post("/api/create-account", registerUser); // Route to register a user
+app.post("/api/login", loginUser); // Route to log in a user
+app.post("/tasks", userTask); // Route to add a task
 
-// POST route to register a user (now using auth.js's registerUser)
-app.post("/api/create-account", registerUser); // Use the imported registerUser function
-
-// GET route to fetch all users
-app.get("/api/users", (req, res) => {
-  User.find()
-    .then((users) => {
-      res.json(users); // Send the users as a JSON response
-    })
-    .catch((error) => {
-      res.status(500).send({ message: "Error retrieving users", error });
-    });
+//testing get API
+app.get("/test", (req, res) => {
+  res.send("Hello World!");
 });
 
 // POST route to login user (now using auth.js's loginUser)

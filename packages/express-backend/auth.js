@@ -11,52 +11,44 @@ function generateAccessToken(username) {
   return jwt.sign({ username }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
 }
 
+// Example in the registerUser function:
 function registerUser(req, res) {
-  const { username, password } = req.body; // Extract input from the request body
+  const { username, password } = req.body;
+  console.log(req.body);
 
   if (!username || !password) {
-    return res
-      .status(400)
-      .send({ message: "Bad request: Invalid input data." });
+    return res.status(400).json({ error: "Bad request: Invalid input data." }); // Changed to .json()
   }
 
-  console.log("Attempting to register user:", username); // Log the username to see what is being passed
+  console.log("Attempting to register user:", username);
 
-  // Check if username already exists in the database
   User.findOne({ username })
     .then((existingUser) => {
       if (existingUser) {
-        console.log("Username already taken:", username); // Log if username exists
-        return res.status(409).send({ message: "Username already taken." });
+        console.log("Username already taken:", username);
+        return res.status(409).json({ error: "Username already taken." }); // Changed to .json()
       }
 
-      // Hash the password
       bcrypt
         .genSalt(10)
-        .then((salt) => {
-          return bcrypt.hash(password, salt); // Hash the password
-        })
+        .then((salt) => bcrypt.hash(password, salt))
         .then((hashedPassword) => {
-          // Save the user to the database
           const newUser = new User({ username, password: hashedPassword });
           return newUser.save();
         })
         .then(() => {
-          // Generate a JWT token for the new user
           const token = generateAccessToken(username);
-
-          // Send success response with the token
-          console.log("User created successfully:", username); // Log when user is successfully created
-          return res.status(201).send({ token });
+          console.log("User created successfully:", username);
+          return res.status(201).json({ token }); // Consistent JSON response
         })
         .catch((error) => {
-          console.error("Error during password hashing or saving user:", error); // Log the error
-          return res.status(500).send({ message: "Internal server error." });
+          console.error("Error during password hashing or saving user:", error);
+          return res.status(500).json({ error: "Internal server error." }); // Changed to .json()
         });
     })
     .catch((error) => {
-      console.error("Error checking existing user:", error); // Log the error when checking for existing user
-      return res.status(500).send({ message: "Internal server error." });
+      console.error("Error checking existing user:", error);
+      return res.status(500).json({ error: "Internal server error." }); // Changed to .json()
     });
 }
 

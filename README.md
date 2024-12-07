@@ -14,6 +14,8 @@ Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms
 
 **[Click here](https://www.figma.com/proto/pLOeuJosEQzmTugGTaWfRu/TA-2%3A-Storyboard?node-id=90-4&t=kRTwjutYyFHnk6BK-1)** to see our UI Prototype, last updated (11/04/2024)
 
+**[Click here](https://github.com/ssotoale/event-app/blob/main/wikipage.md)** to our UML Class Diagram
+
 ## Development Environment Set Up
 
 ### Code Style

@@ -12,8 +12,6 @@ const app = express();
 app.use(express.json());
 const User = require("./models/users"); // Import the User model
 
-const PORT = process.env.PORT || 5000;
-
 // to parse JSON
 app.use(cors()); // enable CORS for all routes
 
@@ -51,37 +49,41 @@ app.get("/api/users", (req, res) => {
 
 // POST route to login user (now using auth.js's loginUser)
 app.post("/api/login", loginUser); // Use the imported loginUser function
-app.post("/tasks", userTask);
+app.post("/api/tasks", userTask);
 
 // GET route for user data (protected route using the authenticateUser middleware)
 app.get("/api/user-data", authenticateUser);
 // req.user is populated with the decoded JWT payload
-app.get("/tasks", authenticateUser);
-app.delete("/Table/:username/:taskId", async (req, res) => {
-  const { username, taskId } = req.params;
+app.get("/api/tasks", authenticateUser);
+// app.delete("/Table/:username/:taskId", async (req, res) => {
+//   const { username, taskId } = req.params;
 
-  try {
-    const userTask = await userTask.findOne({ username });
-    if (!userTask) {
-      return res.status(404).json({ message: "User tasks not found" });
-    }
+//   try {
+//     const userTask = await userTask.findOne({ username });
+//     if (!userTask) {
+//       return res.status(404).json({ message: "User tasks not found" });
+//     }
 
-    const task = userTask.tasks.id(taskId);
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
+//     const task = userTask.tasks.id(taskId);
+//     if (!task) {
+//       return res.status(404).json({ message: "Task not found" });
+//     }
 
-    // Remove the task
-    task.remove();
-    await userTask.save();
+//     // Remove the task
+//     task.remove();
+//     await userTask.save();
 
-    res.status(200).json({ message: "Task deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting task", error });
-  }
-});
+//     res.status(200).json({ message: "Task deleted successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error deleting task", error });
+//   }
+// });
 
 // start server
-app.listen(process.env.PORT || PORT, () => {
-  console.log("REST API is listening.");
+const PORT = process.env.PORT || 5000;
+const server = app.listen(PORT, () => {
+  console.log(`REST API is listening on port ${PORT}`);
 });
+
+// Export the app for testing
+module.exports = { app, server };

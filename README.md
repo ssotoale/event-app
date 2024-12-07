@@ -19,7 +19,7 @@ Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms
 
 
 # Installation & Setup
-# Development Environment Setup
+## Development Environment Setup
 
 To set up the development environment on your local machine, follow these steps:
 

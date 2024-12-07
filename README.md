@@ -12,8 +12,7 @@ Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms
 
 **Embark on your productivity quest and conquer your day, one quest at a time!**
 
-**[Click here]([url](https://www.figma.com/proto/pLOeuJosEQzmTugGTaWfRu/TA-2%3A-Storyboard?node-id=90-4&t=kRTwjutYyFHnk6BK-1))** to see our UI Prototype.
-
+**[Click here](https://www.figma.com/proto/pLOeuJosEQzmTugGTaWfRu/TA-2%3A-Storyboard?node-id=90-4&t=kRTwjutYyFHnk6BK-1)** to see our UI Prototype.
 ## Contributing
 
 Please follow these coding standards to maintain consistency across the project:

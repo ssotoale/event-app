@@ -35,7 +35,4 @@ Please follow these coding standards to maintain consistency across the project:
 - Prettier: adding prettier on to ESLint: https://gist.github.com/bklingen-calpoly/4ed88b4093a5bcfa4be93a9ee0d8a31e
 - Prettier: adding the format command to package.json: https://gist.github.com/bklingen-calpoly/c80cac4a012357dbb2751d22a428fd92
 - Here are some instructions on how to setup VSCode to auto-format your code:  https://blog.yogeshchavan.dev/automatically-format-code-on-file-save-in-visual-studio-code-using-prettier
-- Configure your IDE to format on save by installing the Prettier extension in VSCode.
-
-- https://lucid.app/lucidchart/a907ebb7-0e72-4cd4-a01a-affc5808644c/edit?viewport_loc=-297%2C-786%2C2571%2C1944%2C0_0&invitationId=inv_f15f9190-4cff-4302-aebf-76f762eb0f36 UML DESIGN TO FOLLOW FOR NOW
-- 
+- Configure your IDE to format on save by installing the Prettier extension in VSCode.  

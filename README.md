@@ -19,9 +19,67 @@ Unlike the minimalist design of most to-do list apps, **QuestLogger** transforms
 
 
 # Installation & Setup
-## Development Environment Set Up
+# Development Environment Setup
 
-### Code Style
+To set up the development environment on your local machine, follow these steps:
+
+### 1. Clone the Repository
+Clone the project repository to your local machine:
+```bash
+git clone <repository-url>
+```
+
+### 2. Install Dependencies
+
+#### Frontend & Backend
+Navigate to the root directory of the project and install the necessary dependencies using `npm ci` for a clean install:
+```bash
+npm ci
+```
+
+This will install all the dependencies for both the frontend and backend.
+
+### 3. Running the Development Servers
+
+#### Frontend
+Navigate to the frontend directory and start the frontend development server:
+```bash
+cd frontend
+npm run dev
+```
+The frontend will be available at `http://localhost:5000`.
+
+#### Backend
+Navigate to the backend directory and start the backend development server:
+```bash
+cd backend
+npm start
+```
+The backend will be available at `http://127.0.0.1:5173`.
+
+### 4. Additional Configuration (if needed)
+If the project requires environment variables or additional configuration files, make sure to set them up as needed. For example, you may need to create a `.env` file by copying `.env.example`:
+```bash
+cp .env.example .env
+```
+
+### 5. Verify the Setup
+Once both the frontend and backend are running, visit `http://localhost:5000` to ensure the frontend is accessible and `http://127.0.0.1:5173` for the backend API.
+
+### Notes:
+- Ensure both the frontend and backend servers are running simultaneously for proper communication.
+- If you encounter any issues related to port conflicts, check if the ports are already in use and modify the configurations if necessary.
+- If the project includes tests, you can run them with:
+   ```bash
+   npm test
+   ```
+   (Or follow specific test instructions in the README if applicable.)
+
+---
+
+By following these steps, you should be able to set up the project environment and start contributing to the project.
+
+## Code Style
 
 Please follow these coding standards to maintain consistency across the project:
 - We use **Prettier** and **ESLint** to enforce consistent formatting.

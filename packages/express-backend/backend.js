@@ -10,18 +10,12 @@ const {
 } = require("./auth"); // Import functions from auth.js
 
 const app = express();
-const PORT = process.env.PORT || 5000; // Default to port 5000 if not defined
-
-// Middleware
 app.use(express.json());
+const User = require("./models/users"); // Import the User model
 
-// Configure CORS
-const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000"; // Frontend URL from environment variable
-const allowedOrigins = [frontendURL, "https://questlogger-epcdgcdvh9gga5cp.westus3-01.azurewebsites.net"];
+// to parse JSON
+app.use(cors()); // enable CORS for all routes
 
-app.use(cors();
-
-// MongoDB connection
 const uri = process.env.MONGODB_URI;
 
 if (!uri) {
@@ -52,42 +46,43 @@ app.get("/test", (req, res) => {
   res.send("Hello World!");
 });
 
-// Protected routes
-app.get("/api/user-data", authenticateUser, (req, res) => {
-  res.status(200).json({ message: "User authenticated successfully", user: req.user });
-});
+// POST route to login user (now using auth.js's loginUser)
+app.post("/api/login", loginUser); // Use the imported loginUser function
+app.post("/api/tasks", userTask);
 
-app.get("/tasks", authenticateUser, (req, res) => {
-  res.status(200).json({ message: "Authenticated user tasks retrieved successfully" });
-});
+// GET route for user data (protected route using the authenticateUser middleware)
+app.get("/api/user-data", authenticateUser);
+// req.user is populated with the decoded JWT payload
+app.get("/api/tasks", authenticateUser);
+// app.delete("/Table/:username/:taskId", async (req, res) => {
+//   const { username, taskId } = req.params;
 
-// DELETE task by ID
-app.delete("/Table/:username/:taskId", async (req, res) => {
-  const { username, taskId } = req.params;
+//   try {
+//     const userTask = await userTask.findOne({ username });
+//     if (!userTask) {
+//       return res.status(404).json({ message: "User tasks not found" });
+//     }
 
-  try {
-    const userTask = await userTask.findOne({ username });
-    if (!userTask) {
-      return res.status(404).json({ message: "User tasks not found" });
-    }
+//     const task = userTask.tasks.id(taskId);
+//     if (!task) {
+//       return res.status(404).json({ message: "Task not found" });
+//     }
 
-    const task = userTask.tasks.id(taskId);
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
+//     // Remove the task
+//     task.remove();
+//     await userTask.save();
 
-    // Remove the task
-    task.remove();
-    await userTask.save();
+//     res.status(200).json({ message: "Task deleted successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error deleting task", error });
+//   }
+// });
 
-    res.status(200).json({ message: "Task deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting task:", error.message);
-    res.status(500).json({ message: "Error deleting task", error: error.message });
-  }
-});
-
-// Start the server
-app.listen(PORT, () => {
+// start server
+const PORT = process.env.PORT || 5000;
+const server = app.listen(PORT, () => {
   console.log(`REST API is listening on port ${PORT}`);
 });
+
+// Export the app for testing
+module.exports = { app, server };

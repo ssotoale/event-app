@@ -3,8 +3,7 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User, UserTask } = require("./models/users");
-// Your User model
-// Function to generate JWT token
+
 function generateAccessToken(username) {
   if (!process.env.TOKEN_SECRET) {
     throw new Error("TOKEN_SECRET environment variable is not set.");
@@ -89,6 +88,7 @@ function loginUser(req, res) {
   User.findOne({ username })
     .then((retrievedUser) => {
       if (!retrievedUser) {
+        // Send response and return to prevent further execution
         return res
           .status(401)
           .send({ message: "Invalid username or password" });
@@ -101,9 +101,12 @@ function loginUser(req, res) {
       if (matched) {
         // Generate a JWT token for the user
         const token = generateAccessToken(username);
-        console.log("Token created successfuly:", token);
+        console.log("Token created successfully:", token);
+
+        // Send response and return to prevent further execution
         return res.status(200).send({ token });
       } else {
+        // Invalid password, send response and return
         return res
           .status(401)
           .send({ message: "Invalid username or password" });
@@ -111,51 +114,43 @@ function loginUser(req, res) {
     })
     .catch((error) => {
       console.error("Error logging in:", error);
+
+      // Send response and return to prevent further execution
       return res.status(500).send({ message: "Internal server error" });
     });
 }
 
-async function userTask(req, res) {
-  const { username, task } = req.body;
+function userTask(req, res) {
+  const { username, task } = req.body; // Only the username and task are provided by the user
 
-  // Validate request body
-  if (!username || !task || !task.task || !task.xp || !task.date) {
-    return res.status(400).json({
-      message: "Invalid input: username, task, xp, and date are required",
-    });
+  // Validate input
+  if (!username || !task) {
+    return res.status(400).send({ message: "Username and task are required" });
   }
 
-  try {
-    // Check if user exists
-    const userExists = await User.findOne({ username });
-    if (!userExists) {
-      return res.status(404).json({ message: "User not found" });
-    }
+  const newTask = {
+    task: task,
+    completed: false, // Default value
+    xp: 5, // Default XP for each task
+    date: new Date().toISOString().split("T")[0], // Current date in "YYYY-MM-DD" format
+  };
 
-    // Find or create the user's task document
-    let userTask = await UserTask.findOne({ username });
-
-    if (!userTask) {
-      userTask = new UserTask({ username, tasks: [] });
-    }
-
-    // Check for duplicate tasks
-    const isDuplicate = userTask.tasks.some(
-      (t) => t.task === task.task && t.date === task.date,
-    );
-    if (isDuplicate) {
-      return res.status(409).json({ message: "Task already exists" });
-    }
-
-    // Add the new task
-    userTask.tasks.push(task);
-    await userTask.save();
-
-    res.status(201).json({ message: "Task added successfully", userTask });
-  } catch (error) {
-    console.error("Error adding task:", error); // Log the error for debugging
-    res.status(500).json({ message: "Internal server error", error });
-  }
+  // Find user task record by username (or create a new one if not found)
+  UserTask.findOneAndUpdate(
+    { username: username },
+    { $push: { tasks: newTask } }, // Add the new task to the user's task array
+    { upsert: true, new: true }, // Create new record if user not found
+    (err, updatedUserTask) => {
+      if (err) {
+        console.error("Error adding task:", err);
+        return res.status(500).send({ message: "Internal server error" });
+      }
+      return res.status(200).send({
+        message: "Task added successfully",
+        tasks: updatedUserTask.tasks,
+      });
+    },
+  );
 }
 
 // Export the functions using CommonJS syntax
@@ -164,4 +159,5 @@ module.exports = {
   authenticateUser,
   loginUser,
   userTask,
+  generateAccessToken,
 };
